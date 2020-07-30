@@ -1,0 +1,81 @@
+# type Blog @model {
+#   id: ID!
+#   name: String!
+#   posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+# }
+
+# type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+#   id: ID!
+#   title: String!
+#   blogID: ID!
+#   blog: Blog @connection(fields: ["blogID"])
+#   comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+# }
+
+# type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+#   id: ID!
+#   postID: ID!
+#   post: Post @connection(fields: ["postID"])
+#   content: String!
+# }
+
+type ExerciseDefinition @model {
+  id: ID!
+  name: String!
+  weight: Boolean!
+  time: Boolean!
+  distance: Boolean!
+  calories: Boolean!
+  height: Boolean!
+  percentMax: Boolean!
+}
+
+type Wod @model {
+  id: ID!
+  date: AWSDate!
+  workouts: [Workout] @connection(keyName: "byWod", fields: ["id"])
+}
+
+type Workout @model @key(name: "byWod", fields: ["wodID"]) {
+  id: ID!
+  wodID: ID!
+  name: String
+  exercises: [Exercise] @connection(keyName: "byWorkout", fields: ["id"])
+  rounds: Int
+  timecap: Int
+  notes: String
+}
+
+type Exercise @model @key(name: "byWorkout", fields: ["workoutID"]) {
+  id: ID!
+  workoutID: ID!
+  exerciseDefinitionID: ID!
+  exerciseDefinition: ExerciseDefinition!
+    @connection(fields: ["exerciseDefinitionID"])
+  weight: Int
+  time: Int
+  distance: Int
+  calories: Int
+  height: Int
+  sets: Int
+  reps: Int
+  percentMax: Int
+}
+
+type ExerciseResult @model {
+  id: ID!
+  wodId: ID!
+  wod: Wod @connection(fields: ["wodId"])
+  exerciseDefinitionID: ID!
+  exerciseDefinition: ExerciseDefinition!
+    @connection(fields: ["exerciseDefinitionID"])
+  date: AWSDateTime!
+  weight: Int
+  time: Int
+  distance: Int
+  calories: Int
+  height: Int
+  sets: Int
+  reps: Int
+  percentMax: Int
+}

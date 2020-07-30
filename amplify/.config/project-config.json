@@ -1,0 +1,17 @@
+{
+    "projectName": "squats",
+    "version": "3.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react-native",
+        "config": {
+            "SourceDir": "/",
+            "DistributionDir": "/",
+            "BuildCommand": "yarn build",
+            "StartCommand": "yarn start"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}
